@@ -1,5 +1,6 @@
 package me.rbrickis.testing;
 
+import net.minecraft.server.v1_8_R1.ChatSerializer;
 import org.apache.commons.lang.Validate;
 
 import java.lang.reflect.Constructor;

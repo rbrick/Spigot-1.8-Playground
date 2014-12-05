@@ -25,7 +25,6 @@ public class Main extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         Bukkit.getPluginManager().registerEvents(this, this);
-
         /*
           Animated armor stand! Simple, but cool.
          */
@@ -42,7 +41,7 @@ public class Main extends JavaPlugin implements Listener {
             boolean subtract = false;
             @Override
             public void run() {
-              if(armorStand.isValid()) {
+              if(armorStand.isValid() && armorStand != null) {
                   if (armorStand.getLeftArmPose().getX() <= 1.0 && armorStand.getRightArmPose().getZ() <= 1.0 && !subtract) {
                       // add
                       EulerAngle rightArm = armorStand.getRightArmPose().add(0, 0, 0.1);
@@ -94,7 +93,9 @@ public class Main extends JavaPlugin implements Listener {
        Header & Footers in tab.
      */
     public void sendTabMessage(Player player) {
-      WrappedServerPlayTabPacket tabPacket = new WrappedServerPlayTabPacket("{\"text\":\"§aWelcome to, §6HCSoups.com!\"}", "{\"text\":\"§aThis is a test!\"}");
+      TextBuilder builder = new TextBuilder("§aWelcome to §6HCSoups§a!");
+      TextBuilder builder1 = new TextBuilder("§aVisit our website §2@ §6www.hcsoups.com");
+      WrappedServerPlayTabPacket tabPacket = new WrappedServerPlayTabPacket(builder.build(), builder1.build());
       ReflectionUtils.sendPacket(player, tabPacket.getPacket());
     }
 
@@ -102,7 +103,9 @@ public class Main extends JavaPlugin implements Listener {
       Sends a message above the action bar (hot bar).
      */
     public void sendToActionBar(Player player) {
-        WrappedServerPlayChatPacket chatPacket = new WrappedServerPlayChatPacket("{\"text\":\"§cWelcome, §a" + player.getName() + "\"}", (byte) 2);
+        TextBuilder builder = new TextBuilder("§cWelcome §a" + player.getName());
+        builder.append("§c, Enjoy your stay!");
+        WrappedServerPlayChatPacket chatPacket = new WrappedServerPlayChatPacket(builder.build(), (byte) 2);
         ReflectionUtils.sendPacket(player, chatPacket.getPacket());
     }
 
